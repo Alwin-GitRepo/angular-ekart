@@ -1,0 +1,50 @@
+<!-- with product  -->
+<div *ngIf="wishlistProducts || wishlistProducts.length > 0" class="container">
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div *ngFor="let product of wishlistProducts" class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        <img class="card-img-top" [src]="product.image" [alt]="product.title" />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">{{product.title}}</h5>
+                                <!-- Product price-->
+                                ${{product.price}}
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="d-flex">
+                                <button
+                                (click)="removeWishlistProduct(product.id)"
+                                class="ms-3 btn btn-outline-dark flex-shrink-0" type="button">
+                                    <!-- <i class="bi-cart-fill me-1"></i> -->
+                                     <i class="fa-solid fa-heart-circle-minus text-danger"></i>
+                                </button>
+                                <button 
+                                (click)="addToCart(product)"
+                                class="btn ms-5 btn-outline-dark flex-shrink-0" type="button">
+                                    <!-- <i class="bi-cart-fill me-1"></i> -->
+                                     <i class="fa-solid fa-cart-plus text-success"></i>
+                                </button>
+                            </div>                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<!-- without product - empty wishlist -->
+<div *ngIf="!wishlistProducts || wishlistProducts.length === 0" class="container text-center">
+    <img src="https://cdn.dribbble.com/users/392618/screenshots/2121061/wishlist.gif" alt="">
+    <div class="text-center m-3">
+        <button routerLink="/" class="btn btn-success">Shop more</button>
+    </div>
+</div>

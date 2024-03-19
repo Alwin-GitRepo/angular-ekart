@@ -1,0 +1,89 @@
+<!-- cart empty  -->
+<div *ngIf="!cartProducts || cartProducts.length === 0" class="container text-center m-5 p-5 ">
+  <img src="https://supershopping.lk/images/home/Cart-empty.gif" alt="">
+  <button routerLink="/" class="btn btn-success m-3">Add Items</button>
+</div>
+
+
+<!-- cart with product  -->
+<div class="container py-5">
+  <div class="row">
+    <div class="col-8">
+      <!-- table  -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Image</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of cartProducts">
+            <th scope="row">{{product.id}}</th>
+            <td>{{product.title}}</td>
+            <td>
+              <img [src]="product.image" class="object-fit-contain" width="80px" height="80px" [alt]="product.title">
+            </td>
+            <td>
+              <div class="d-flex gap-1 align-items-center">
+                <button (click)="decrementCartItems(product.id)" class="btn"> <i class="fa-xs fa-solid fa-minus"></i> </button>
+                <input type="text" class="form-control" style="max-width: 45px;" [value]="product.quantity" width="10px"
+                  readonly>
+                <button (click)="incrementCartItems(product.id)" class="btn "> <i class="fa-xs fa-solid fa-plus"></i> </button>
+              </div>
+
+            <td>${{product.grandTotal}}</td>
+            <td>
+              <button (click)="removeCartProduct(product.id)" class="btn">
+                <i class="fa-solid fa-trash text-danger"></i>
+              </button>
+            </td>
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+              aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Checkout Details</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <h3 class="text-primary">Enter your Details</h3>
+                    <input type="text" placeholder="Name" class="form-control mb-3">
+                    <input type="text" placeholder="Phone Number" class="form-control mb-3">
+                    <input type="text" placeholder="Address" class="form-control mb-3">
+                    <h2>Total Price : ${{product.grandTotal}}</h2>
+                    <div *ngIf="showPayPal">
+                      <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" (click)="makePay()">Make Payment</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </tr>
+
+          
+
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-4 text-center">
+      <div class="card  shadow shadow-sm">
+        <h4 class="m-3">Card Summary</h4>
+        <h3>Total Price : ${{getCartTotal()}}</h3>
+        <button class="btn btn-success mx-5 my-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Check Out</button>
+        
+      </div>
+    </div>
+       
+  </div>
+</div>

@@ -1,0 +1,16 @@
+.navbar{
+    background-color: #09090B;
+    color: #F1F5F9;
+}
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #71717A;
+    opacity: 1; /* Firefox */
+}
+
+.form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #71717A;
+}
+
+.form-control::-ms-input-placeholder { /* Microsoft Edge */
+    color: #71717A;
+}
